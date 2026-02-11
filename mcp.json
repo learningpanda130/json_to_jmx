@@ -1,0 +1,33 @@
+{
+    "name": "postman2jmx",
+    "version": "1.0.0",
+    "description": "MCP server to convert Postman collection to Jmeter JMX",
+    "entrypoint": "python server.py",
+    "tools": [
+        {
+            "name": "postman_to_jmx",
+            "description": "Convert Postman collection to JMX",
+            "input_schema": {
+                "type":"object",
+                "properties":{
+                    "collection":{"type":"string"},
+                    "environment": {"type": "string"},
+                    "output": {"type": "string"}
+                },
+            "required": ["collection"]
+            }
+        },
+        {
+            "name": "run_jmeter",
+            "description": "Run JMeter performance test on a JMX file",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "jmx_path": {"type": "string"},
+                    "results_path": {"type": "string"}
+                },
+                "required": ["jmx_path"]
+            }
+        }
+    ]
+}

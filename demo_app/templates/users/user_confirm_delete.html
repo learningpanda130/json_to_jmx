@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Delete User</h1>
+    <p>Delete {{ user.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <button type="submit">Yes</button>
+            <a href="{% url 'user_list' %}">No</a>
+        </div>
+    </form>
+</body>
+</html>
