@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Demo Application</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{% url 'user_detail' user.pk %}">{{ user.name }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{% url 'user_update' user.pk %}">Edit</a> |
+                        <a href="{% url 'user_delete' user.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{% url 'user_create' %}">Add User</a>
+</body>
+</html>
