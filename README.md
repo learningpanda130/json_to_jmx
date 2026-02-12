@@ -12,14 +12,10 @@
 
 - [🎯 Overview](#-overview)
 - [✨ Features](#-features)
-- [📂 Repository Structure](#-repository-structure)
-- [📄 File Descriptions](#-file-descriptions)
-- [🏗️ System Architecture](#-system-architecture)
+- [📂 Repository Structure](#repository-structure)
 - [📊 Workflow Diagram](#-workflow-diagram)
-- [⚙️ Installation & Setup](#️-installation--setup)
-- [🚀 How the System Works](#-how-the-system-works)
+- [🚀 How the System Works](#how-the-system-works)
 - [💻 Usage Guide](#-usage-guide)
-- [🔌 MCP Tools Integration](#-mcp-tools-integration)
 - [📊 Understanding Output Files](#-understanding-output-files)
 - [🤝 Contributing](#-contributing)
 
@@ -50,7 +46,7 @@
 | 🐳 **Docker-Integrated JMeter** | Runs JMeter in Docker (no manual setup required) |
 | 📈 **Rich Reports** | Generates HTML + CSV performance dashboards |
 | 🔄 **Human-in-Loop Optimization** | Interactive workflow for performance tuning |
-| 🤖 **MCP Server Integration** | Exposes tools for Claude Desktop & AI agents |
+| 🤖 **MCP Server Integration** | Exposes tools for Claude Desktop & AI agents `postman_to_jmx` and `run_jmeter` |
 | 📊 **Real-Time Monitoring** | Track test progress with live dashboards |
 | 🎯 **Rerun Capability** | Easy test reruns with different configurations |
 
@@ -80,6 +76,7 @@ This uses the included Python script:
 converter = PostmanToJMeterConverter()
 converter.convert("collection.json", "output.jmx")
 ```
+
 ### Step 4: Run Jmeter
 The MCP tool `run_jmeter` runs:
 ```bash
@@ -87,20 +84,19 @@ docker run --rm -v $PWD:/jmeter justb4/jmeter:latest -n -t output.jmx -l results
 ```
 
 ### Step 5. Human-in-loop approval
-
 You check the performance, if not satisfied, ask the agent to optimize and re-run
 
 ---
 
-## How to run the MCP server?
+## Usage guide (MCP Tool Integration)
 Start the server:
 ```bash
 python server.py
 ```
-MCP client (claude desktop etc.) will detect the tools.
+The project exposes two MCP tools so any MCP-capable client (claude desktop etc.) can orchestrate the full performance-test loop.
 
 ---
-## Understanding the output files
+## Understanding Output Files
 | File  | Purpose|
 |-------|--------|
 |`output.jmx`|Jmeter Test Plan|
