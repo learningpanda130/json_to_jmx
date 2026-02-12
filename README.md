@@ -15,8 +15,8 @@
 - [📂 Repository Structure](#repository-structure)
 - [📊 Workflow Diagram](#-workflow-diagram)
 - [🚀 How the System Works](#how-the-system-works)
-- [💻 Usage Guide](#-usage-guide)
-- [📊 Understanding Output Files](#-understanding-output-files)
+- [💻 Usage Guide](#usage-guide-mcp-tool-integration)
+- [📊 Understanding Output Files](#understanding-output-files)
 - [🤝 Contributing](#-contributing)
 
 
