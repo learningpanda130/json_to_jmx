@@ -15,7 +15,7 @@ def postman_to_jmx(args: dict):
     try:
         collection_json = args.get('collection')
         environment_json = args.get('environment')
-        output_path = args.get('output', 'output.jmx')
+        output_path = args.get('output', os.path.join('data', 'output', 'output.jmx'))
 
         if not collection_json:
             return CallToolResult(content=[TextContent(type="text", text="Error: missing collection argument")])
@@ -32,6 +32,11 @@ def postman_to_jmx(args: dict):
                 with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
                     f.write(environment_json)
                     temp_env = f.name
+
+            # ensure output directory exists
+            out_dir = os.path.dirname(output_path)
+            if out_dir and not os.path.exists(out_dir):
+                os.makedirs(out_dir, exist_ok=True)
 
             converter = PostmanToJMeterConverter()
             success = converter.convert(temp_collection, output_path, temp_env)
@@ -55,10 +60,15 @@ def postman_to_jmx(args: dict):
 def run_jmeter(args: dict):
     try:
         jmx_path = args.get('jmx_path')
-        results_path = args.get('results_path', 'jmeter_results.csv')
+        results_path = args.get('results_path', os.path.join('data', 'output' 'results.csv'))
 
         if not jmx_path:
             return CallToolResult(content=[TextContent(type="text", text="Error: missing jmx_path argument")])
+
+        # ensure directories exist for output/results
+        results_dir = os.path.dirname(results_path)
+        if results_dir and not os.path.exists(results_dir):
+            os.makedirs(results_dir, exist_ok=True)
 
         # Run JMeter via Docker
         result = subprocess.run([

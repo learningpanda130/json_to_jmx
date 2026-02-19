@@ -370,6 +370,11 @@ class PostmanToJMeterConverter:
             xml_str = minidom.parseString(ET.tostring(self.jmx_root, encoding='unicode')).toprettyxml(indent='  ')
             # Remove empty lines
             xml_str = '\n'.join([line for line in xml_str.split('\n') if line.strip()])
+
+            # make sure output directory exists
+            out_dir = os.path.dirname(output_file)
+            if out_dir and not os.path.exists(out_dir):
+                os.makedirs(out_dir, exist_ok=True)
             
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(xml_str)
