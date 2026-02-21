@@ -88,7 +88,36 @@ def perform_action(driver, suggestion, collection):
     return False
 
 def main():
-    url = input("Enter the base URL of the application (e.g., http://127.0.0.1:8000): ").strip()
+    # allow CLI arguments so that this can be scripted or integrated into other tooling
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Crawl a web application and build a Postman collection of the visited APIs",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument("base_url", nargs="?",
+                        help="Base URL of the application (e.g. http://127.0.0.1:8000)")
+    parser.add_argument("-o", "--output",
+                        help="Where to save the collection JSON file",
+                        default=os.path.join("data", "output", "collection.json"))
+    parser.add_argument("-m", "--max-pages", type=int,
+                        help="Maximum number of pages to explore",
+                        default=10)
+
+    args = parser.parse_args()
+
+    if args.base_url:
+        url = args.base_url.rstrip('/')
+    else:
+        url = input("Enter the base URL of the application (e.g., http://127.0.0.1:8000): ").strip()
+
+    output_path = args.output
+    max_pages = args.max_pages
+
+    # ensure output directory exists
+    out_dir = os.path.dirname(output_path)
+    if out_dir and not os.path.exists(out_dir):
+        os.makedirs(out_dir, exist_ok=True)
     
     # Selenium setup
     options = Options()
@@ -131,12 +160,12 @@ def main():
     driver.quit()
     
     # Save collection
-    with open('collection.json', 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(collection, f, indent=2)
     if collection['item']:
-        print("Collection saved to collection.json with", len(collection['item']), "requests.")
+        print(f"Collection saved to {output_path} with {len(collection['item'])} requests.")
     else:
-        print("No requests captured. Collection saved as empty.")
+        print(f"No requests captured. Empty collection saved to {output_path}.")
 
 if __name__ == "__main__":
     main()
