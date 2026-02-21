@@ -60,7 +60,7 @@ def postman_to_jmx(args: dict):
 def run_jmeter(args: dict):
     try:
         jmx_path = args.get('jmx_path')
-        results_path = args.get('results_path', os.path.join('data', 'output' 'results.csv'))
+        results_path = args.get('results_path', os.path.join('data', 'output', 'results.csv'))
 
         if not jmx_path:
             return CallToolResult(content=[TextContent(type="text", text="Error: missing jmx_path argument")])

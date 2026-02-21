@@ -12,7 +12,7 @@ import time
 
 # Set OpenAI API key
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-print(api_key=os.getenv('OPENAI_API_KEY'))
+
 if not client.api_key:
     print("Error: Set OPENAI_API_KEY environment variable.")
     exit(1)
