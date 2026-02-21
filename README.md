@@ -74,9 +74,6 @@ The system is intentionally minimal so that even beginners can follow the flow. 
 
 ## 📊 Workflow Diagram
 
-
-![flowchart](data\metadata\image.png)
-
 ```mermaid
 flowchart LR
  subgraph App["🚀 Application Layer"]
@@ -129,7 +126,7 @@ flowchart LR
 ## 💻 Usage Guide
 
 ### Prerequisites
-1. Python 3.10+
+1. Python 3.9+
 2. `pip install selenium webdriver-manager openai mcp`
 3. Docker installed and running
 4. (Optional) Set `OPENAI_API_KEY` environment variable to use the LLM suggestion feature in the agent.
@@ -197,5 +194,3 @@ To contribute:
 3. Submit a pull request with a clear description of your changes.
 
 ---
-
-# Happy Testing!
